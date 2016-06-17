@@ -41,3 +41,6 @@ android/keystores/debug.keystore
 
 # Environment Keys
 .env
+
+# VS Code
+.vscode

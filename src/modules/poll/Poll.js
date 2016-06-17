@@ -17,6 +17,15 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     flex: 1,
   },
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  emptyHeading: {
+    fontSize: 20,
+    lineHeight: 33,
+  },
   question: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -60,12 +69,15 @@ class Poll extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.voted) {
+      return this.props.fetchPoll();
+    }
     const dataSource = this.state.dataSource.cloneWithRows(nextProps.choices);
     this.setState({ ...this.state, dataSource });
   }
 
   renderRow(choice, sectionId, rowId, highlightRow) {
-    const active = this.state.active === Number(rowId);
+    const active = this.state.active === Number(choice.id);
     const charCode = active ? 10003 : 65 + Number(rowId);
     return (
       <PollRow
@@ -75,13 +87,26 @@ class Poll extends Component {
         onPress={() => this.setState({
           ...this.state,
           dataSource: this.ds.cloneWithRows(this.props.choices),
-          active: Number(rowId) })
+          active: Number(choice.id) })
         }
       />
     );
   }
 
-  render() {
+  _renderEmpty() {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyHeading}>
+          There are no more polls to answer. :(
+        </Text>
+        <Text>
+          Check again later!
+        </Text>
+      </View>
+    );
+  }
+
+  _renderPoll() {
     return (
       <View style={styles.container}>
         <View style={styles.question}>
@@ -95,7 +120,7 @@ class Poll extends Component {
           renderRow={this.renderRow.bind(this)}
         />
         <TouchableHighlight
-          onPress={() => console.log('pressed')}
+          onPress={this.props.vote.bind(this, this.props.pollId, this.state.active)}
           style={styles.nextButton}
           underlayColor="#71C9E4"
         >
@@ -104,26 +129,35 @@ class Poll extends Component {
       </View>
     );
   }
+
+  render() {
+    return this.props.question ? this._renderPoll() : this._renderEmpty();
+  }
 }
 
 Poll.displayName = 'Poll';
 
 Poll.propTypes = {
   choices: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired,
   })).isRequired,
   fetchPoll: React.PropTypes.func.isRequired,
+  pollId: React.PropTypes.number,
   question: React.PropTypes.string.isRequired,
   vote: React.PropTypes.func.isRequired,
+  voted: React.PropTypes.bool.isRequired,
 };
 
 export default connect(
   (state) => ({
-    question: state.poll.question,
     choices: state.poll.choices,
+    question: state.poll.question,
+    pollId: state.poll.pollId,
+    voted: state.poll.voted,
   }),
   (dispatch) => ({
     fetchPoll: () => dispatch(actions.fetchPoll()),
-    vote: () => dispatch(actions.vote()),
+    vote: (pollId, choiceId) => dispatch(actions.vote(pollId, choiceId)),
   })
 )(Poll);

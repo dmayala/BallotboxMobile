@@ -1,22 +1,27 @@
 import Config from 'react-native-config';
-import { REQUEST_POLL, RECEIVE_POLL, VOTE } from './constants';
-console.log(Config);
+import { REQUEST_POLL, REQUEST_POLL_FAIL, RECEIVE_POLL, VOTE } from './constants';
 const bearer = Config.SECRET;
 const baseUrl = Config.API_URL;
 
 export const fetchPoll = () => {
   return (dispatch, getState) => {
-    fetch(`${baseUrl}/api/polls/1`, {
+    fetch(`${baseUrl}/api/polls/random`, {
       headers: {
         'Authorization': `Bearer ${bearer}`,
       },
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) { throw Error(response.statusText); }
+        return response.json();
+      })
       .then((data) => {
         dispatch({
           type: RECEIVE_POLL,
           payload: data,
         });
+      })
+      .catch((error) => {
+        dispatch({ type: REQUEST_POLL_FAIL });
       });
 
     dispatch({
@@ -26,11 +31,13 @@ export const fetchPoll = () => {
   };
 };
 
-export const vote = () => {
+export const vote = (pollId, choiceId) => {
   return (dispatch, getState) => {
-    dispatch({
-      type: VOTE,
-      payload: {},
-    });
+    fetch(`${baseUrl}/api/polls/${pollId}/choices/${choiceId}`, {
+      method: 'post',
+      headers: {
+        'Authorization': `Bearer ${bearer}`,
+      },
+    }).then(response => { dispatch({ type: VOTE }); });
   };
 };
