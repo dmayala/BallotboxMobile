@@ -6,12 +6,14 @@ const initialState = {
   question: '',
   choices: [],
   voted: false,
+  empty: false,
 };
 
 export default handleActions({
   [RECEIVE_POLL]: (state, action) => {
     const { id, name, choices } = action.payload;
     return {
+      ...state,
       pollId: id,
       question: name,
       choices,
@@ -19,7 +21,7 @@ export default handleActions({
     };
   },
   [REQUEST_POLL_FAIL]: (state, action) => {
-    return initialState;
+    return { ...initialState, empty: true };
   },
   [VOTE]: (state, action) => {
     return { ...state, voted: true };

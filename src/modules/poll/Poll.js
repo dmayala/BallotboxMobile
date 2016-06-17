@@ -39,10 +39,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   nextButton: {
-    backgroundColor: '#EC8026',
+    backgroundColor: 'rgba(236, 128, 38, 0.3)',
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  nextButtonActive: {
+    backgroundColor: 'rgba(236, 128, 38, 1)',
   },
   nextButtonText: {
     fontSize: 18,
@@ -120,8 +123,9 @@ class Poll extends Component {
           renderRow={this.renderRow.bind(this)}
         />
         <TouchableHighlight
+          disabled={!this.state.active}
           onPress={this.props.vote.bind(this, this.props.pollId, this.state.active)}
-          style={styles.nextButton}
+          style={[styles.nextButton, this.state.active && styles.nextButtonActive]}
           underlayColor="#71C9E4"
         >
           <Text style={styles.nextButtonText}>Next Question</Text>
@@ -131,7 +135,7 @@ class Poll extends Component {
   }
 
   render() {
-    return this.props.question ? this._renderPoll() : this._renderEmpty();
+    return !this.props.empty ? this._renderPoll() : this._renderEmpty();
   }
 }
 
@@ -142,6 +146,7 @@ Poll.propTypes = {
     id: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired,
   })).isRequired,
+  empty: React.PropTypes.bool.isRequired,
   fetchPoll: React.PropTypes.func.isRequired,
   pollId: React.PropTypes.number,
   question: React.PropTypes.string.isRequired,
@@ -152,6 +157,7 @@ Poll.propTypes = {
 export default connect(
   (state) => ({
     choices: state.poll.choices,
+    empty: state.poll.empty,
     question: state.poll.question,
     pollId: state.poll.pollId,
     voted: state.poll.voted,
