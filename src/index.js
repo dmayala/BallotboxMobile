@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { poll } from './modules';
+import { navigation } from './modules/navModule';
 
 import createStore from './createStore';
 
@@ -10,7 +10,7 @@ const store = createStore();
 const Main = () => {
   return (
     <Provider store={store}>
-      <poll.Poll />
+      <navigation.Component />
     </Provider>
   );
 };

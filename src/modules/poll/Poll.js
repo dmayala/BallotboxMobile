@@ -14,6 +14,7 @@ import PollRow from '../../components/PollRow/Component';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#ffffff',
     paddingTop: 40,
     flex: 1,
   },
