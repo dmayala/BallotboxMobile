@@ -34,7 +34,7 @@ export const signupUser = (details) => {
 
 export const loginUser = (details) => {
   return (dispatch, getState) => {
-    fetch(`${baseUrl}//auth/login`, {
+    fetch(`${baseUrl}/auth/login`, {
       method: 'post',
       headers: {
         'accept': 'application/json',
@@ -44,6 +44,7 @@ export const loginUser = (details) => {
     })
       .then(response => response.json())
       .then((data) => {
+        console.log(data);
         if (data.status) { throw new Error(data.message); }
         const { username, token } = data;
         // cookie.save('bearer', data.token)

@@ -27,7 +27,7 @@ export default class NavigationRoot extends Component {
   _renderScene({ scene }) {
     const { route } = scene;
     const module = modules[route.key];
-    return false ? <module.Component /> : <Login />;
+    return <module.Component />;
   }
 
   _handleBackAction() {
@@ -52,6 +52,10 @@ export default class NavigationRoot extends Component {
   }
 
   render() {
+    if (!this.props.isAuthenticated) {
+      return <Login loginUser={this.props.loginUser} />;
+    }
+
     return (
       <NavigationCardStack
         direction="vertical"
@@ -65,6 +69,7 @@ export default class NavigationRoot extends Component {
 
 NavigationRoot.propTypes = {
   isAuthenticated: React.PropTypes.bool.isRequired,
+  loginUser: React.PropTypes.func.isRequired,
   navigation: React.PropTypes.shape({
     index: React.PropTypes.number.isRequired,
     key: React.PropTypes.string.isRequired,

@@ -1,10 +1,10 @@
 import Config from 'react-native-config';
 import { REQUEST_POLL, REQUEST_POLL_FAIL, RECEIVE_POLL, VOTE } from './constants';
-const bearer = Config.SECRET;
 const baseUrl = Config.API_URL;
 
 export const fetchPoll = () => {
   return (dispatch, getState) => {
+    const bearer = getState().auth.token;
     fetch(`${baseUrl}/api/polls/random`, {
       headers: {
         'Authorization': `Bearer ${bearer}`,
@@ -33,6 +33,7 @@ export const fetchPoll = () => {
 
 export const vote = (pollId, choiceId) => {
   return (dispatch, getState) => {
+    const bearer = getState().auth.token;
     fetch(`${baseUrl}/api/polls/${pollId}/choices/${choiceId}`, {
       method: 'post',
       headers: {

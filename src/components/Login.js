@@ -3,31 +3,47 @@ import {
   StyleSheet,
   View,
   Text,
+  TextInput,
   TouchableHighlight,
 } from 'react-native';
-import { connect } from 'react-redux';
-import { push } from '../modules/navigation/actions';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#ffffff',
     paddingTop: 40,
     flex: 1,
   },
 });
 
 class Login extends Component {
-  _navigate() {
-    this.props.push({ key: this.props.redirectTo, title: 'placeholder' });
+
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      username: '',
+      password: '',
+    };
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={(username) => this.setState({ ...this.state, username })}
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        />
+        <TextInput
+          onChangeText={(password) => this.setState({ ...this.state, password })}
+          secureTextEntry
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        />
         <TouchableHighlight
-          onPress={this._navigate.bind(this)}
+          onPress={() => { this.props.loginUser(this.state); }}
           underlayColor="#71C9E4"
         >
-          <Text>Next Question</Text>
+          <Text>Login</Text>
         </TouchableHighlight>
       </View>
     );
@@ -36,10 +52,4 @@ class Login extends Component {
 
 Login.propTypes = {};
 
-export default connect(
-  null,
-  (dispatch) => ({
-    push: (route) => dispatch(push(route)),
-  })
-)(Login);
-
+export default Login;
