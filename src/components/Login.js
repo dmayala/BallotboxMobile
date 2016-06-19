@@ -5,6 +5,8 @@ import {
   Text,
   TouchableHighlight,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { push } from '../modules/navigation/actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,10 +16,15 @@ const styles = StyleSheet.create({
 });
 
 class Login extends Component {
+  _navigate() {
+    this.props.push({ key: this.props.redirectTo, title: 'placeholder' });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
+          onPress={this._navigate.bind(this)}
           underlayColor="#71C9E4"
         >
           <Text>Next Question</Text>
@@ -29,4 +36,10 @@ class Login extends Component {
 
 Login.propTypes = {};
 
-export default Login;
+export default connect(
+  null,
+  (dispatch) => ({
+    push: (route) => dispatch(push(route)),
+  })
+)(Login);
+

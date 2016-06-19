@@ -4,7 +4,7 @@ export const push = (route) => {
   return (dispatch, getState) => {
     dispatch({
       type: PUSH_ROUTE,
-      payload: route,
+      route,
     });
   };
 };

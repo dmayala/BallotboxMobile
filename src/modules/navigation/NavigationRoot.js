@@ -4,6 +4,7 @@ import {
   NavigationExperimental,
 } from 'react-native';
 import * as modules from '../index';
+import Login from '../../components/Login';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -26,7 +27,7 @@ export default class NavigationRoot extends Component {
   _renderScene({ scene }) {
     const { route } = scene;
     const module = modules[route.key];
-    return <module.Component style={{ backgroundColor: 'red' }} />;
+    return false ? <module.Component /> : <Login />;
   }
 
   _handleBackAction() {
@@ -63,6 +64,7 @@ export default class NavigationRoot extends Component {
 }
 
 NavigationRoot.propTypes = {
+  isAuthenticated: React.PropTypes.bool.isRequired,
   navigation: React.PropTypes.shape({
     index: React.PropTypes.number.isRequired,
     key: React.PropTypes.string.isRequired,

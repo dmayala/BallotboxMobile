@@ -4,6 +4,7 @@ import { push, pop } from './actions';
 
 function mapStateToProps(state) {
   return {
+    isAuthenticated: state.auth.isAuthenticated,
     navigation: state.navigation,
   };
 }
