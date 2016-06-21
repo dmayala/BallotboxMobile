@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   BackAndroid,
   NavigationExperimental,
@@ -75,15 +75,15 @@ export default class NavigationRoot extends Component {
 }
 
 NavigationRoot.propTypes = {
-  authPending: React.PropTypes.bool.isRequired,
-  failureMessage: React.PropTypes.string,
-  isAuthenticated: React.PropTypes.bool.isRequired,
-  loginUser: React.PropTypes.func.isRequired,
-  navigation: React.PropTypes.shape({
-    index: React.PropTypes.number.isRequired,
-    key: React.PropTypes.string.isRequired,
+  authPending: PropTypes.bool.isRequired,
+  failureMessage: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
   }),
-  popRoute: React.PropTypes.func.isRequired,
-  pushRoute: React.PropTypes.func.isRequired,
-  signupUser: React.PropTypes.func.isRequired,
+  popRoute: PropTypes.func.isRequired,
+  pushRoute: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired,
 };

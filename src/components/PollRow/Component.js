@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
 } from 'react-native';
@@ -47,12 +47,12 @@ class PollRow extends Component {
 }
 
 PollRow.propTypes = {
-  active: React.PropTypes.bool.isRequired,
-  charCode: React.PropTypes.number.isRequired,
-  choice: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  charCode: PropTypes.number.isRequired,
+  choice: PropTypes.shape({
+    name: PropTypes.string.isRequired,
   }),
-  onPress: React.PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 export default PollRow;

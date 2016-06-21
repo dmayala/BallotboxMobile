@@ -1,4 +1,5 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import { auth, poll } from './modules';
@@ -13,5 +14,10 @@ export default (data = {}) => {
     [poll.NAME]: poll.reducer,
   });
 
-  return createStore(rootReducer, data, middleware);
+  const store = createStore(rootReducer, data, compose(
+    middleware,
+    autoRehydrate())
+  );
+
+  return store;
 };

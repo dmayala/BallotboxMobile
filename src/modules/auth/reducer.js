@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import { SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE,
          LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
          SESSION_EXPIRED } from './constants';
+import { REHYDRATE } from 'redux-persist/constants';
 
 const initialState = {
   username: null,
@@ -66,5 +67,11 @@ export default handleActions({
       ...initialState,
       failureMessage: response,
     };
+  },
+  [REHYDRATE]: (state, action) => {
+    const incoming = action.payload.auth;
+    if (incoming) {
+      return { ...state, ...incoming, failureMessage: '' };
+    }
   },
 }, initialState);

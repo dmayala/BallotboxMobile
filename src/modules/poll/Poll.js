@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   View,
@@ -78,7 +78,7 @@ class Poll extends Component {
       return this.props.fetchPoll();
     }
     const dataSource = this.state.dataSource.cloneWithRows(nextProps.choices);
-    this.setState({ ...this.state, dataSource });
+    this.setState({ ...this.state, active: null, dataSource });
   }
 
   renderRow(choice, sectionId, rowId, highlightRow) {
@@ -125,7 +125,7 @@ class Poll extends Component {
           renderRow={this.renderRow.bind(this)}
         />
         <TouchableHighlight
-          disabled={!this.state.active}
+          disabled={!this.state.active || this.props.voted}
           onPress={this.props.vote.bind(this, this.props.pollId, this.state.active)}
           style={[styles.nextButton, this.state.active && styles.nextButtonActive]}
           underlayColor="#71C9E4"
@@ -144,16 +144,16 @@ class Poll extends Component {
 Poll.displayName = 'Poll';
 
 Poll.propTypes = {
-  choices: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired,
+  choices: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
   })).isRequired,
-  empty: React.PropTypes.bool.isRequired,
-  fetchPoll: React.PropTypes.func.isRequired,
-  pollId: React.PropTypes.number,
-  question: React.PropTypes.string.isRequired,
-  vote: React.PropTypes.func.isRequired,
-  voted: React.PropTypes.bool.isRequired,
+  empty: PropTypes.bool.isRequired,
+  fetchPoll: PropTypes.func.isRequired,
+  pollId: PropTypes.number,
+  question: PropTypes.string.isRequired,
+  vote: PropTypes.func.isRequired,
+  voted: PropTypes.bool.isRequired,
 };
 
 export default connect(

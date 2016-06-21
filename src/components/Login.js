@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   View,
@@ -183,10 +183,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  authPending: React.PropTypes.bool,
-  failureMessage: React.PropTypes.string,
-  loginUser: React.PropTypes.func.isRequired,
-  signupUser: React.PropTypes.func.isRequired,
+  authPending: PropTypes.bool,
+  failureMessage: PropTypes.string,
+  loginUser: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired,
 };
 
 export default Login;

@@ -13,7 +13,7 @@ export default handleActions({
   [RECEIVE_POLL]: (state, action) => {
     const { id, name, choices } = action.payload;
     return {
-      ...state,
+      ...initialState,
       pollId: id,
       question: name,
       choices,
