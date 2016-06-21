@@ -157,6 +157,7 @@ class Login extends Component {
           </View>
         </View>
         <TouchableHighlight
+          disabled={this.props.authPending}
           onPress={this._submit.bind(this)}
           style={styles.loginBtn}
           underlayColor="#71C9E4"
@@ -182,6 +183,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  authPending: React.PropTypes.bool,
   failureMessage: React.PropTypes.string,
   loginUser: React.PropTypes.func.isRequired,
   signupUser: React.PropTypes.func.isRequired,

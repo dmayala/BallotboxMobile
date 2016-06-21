@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 import { SIGNUP, SIGNUP_FAILURE, SIGNUP_SUCCESS,
-         LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE } from './constants';
+         LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
+         SESSION_EXPIRED } from './constants';
 const baseUrl = Config.API_URL;
 
 export const signupUser = (details) => {
@@ -30,6 +31,7 @@ export const signupUser = (details) => {
           response: error.message,
         });
       });
+    dispatch({ type: SIGNUP });
   };
 };
 
@@ -60,5 +62,13 @@ export const loginUser = (details) => {
           response: error.message,
         });
       });
+    dispatch({ type: LOGIN_USER });
+  };
+};
+
+export const sessionExpired = () => {
+  return {
+    type: SESSION_EXPIRED,
+    response: 'Your session has expired. Please log in again.',
   };
 };

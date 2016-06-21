@@ -55,6 +55,7 @@ export default class NavigationRoot extends Component {
     if (!this.props.isAuthenticated) {
       return (
         <Login
+          authPending={this.props.authPending}
           failureMessage={this.props.failureMessage}
           loginUser={this.props.loginUser}
           signupUser={this.props.signupUser}
@@ -74,6 +75,7 @@ export default class NavigationRoot extends Component {
 }
 
 NavigationRoot.propTypes = {
+  authPending: React.PropTypes.bool.isRequired,
   failureMessage: React.PropTypes.string,
   isAuthenticated: React.PropTypes.bool.isRequired,
   loginUser: React.PropTypes.func.isRequired,

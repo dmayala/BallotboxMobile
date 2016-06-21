@@ -5,6 +5,7 @@ import { loginUser, signupUser } from '../auth/actions';
 
 function mapStateToProps(state) {
   return {
+    authPending: state.auth.authPending,
     failureMessage: state.auth.failureMessage,
     isAuthenticated: state.auth.isAuthenticated,
     navigation: state.navigation,

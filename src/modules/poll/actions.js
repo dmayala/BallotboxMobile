@@ -1,5 +1,6 @@
 import Config from 'react-native-config';
 import { REQUEST_POLL, REQUEST_POLL_FAIL, RECEIVE_POLL, VOTE } from './constants';
+import { sessionExpired } from '../auth/actions';
 const baseUrl = Config.API_URL;
 
 export const fetchPoll = () => {
@@ -11,7 +12,7 @@ export const fetchPoll = () => {
       },
     })
       .then(response => {
-        if (!response.ok) { throw Error(response.statusText); }
+        if (!response.ok) { throw Error(response.status); }
         return response.json();
       })
       .then((data) => {
@@ -21,7 +22,11 @@ export const fetchPoll = () => {
         });
       })
       .catch((error) => {
-        dispatch({ type: REQUEST_POLL_FAIL });
+        if (error.message === '401') {
+          dispatch(sessionExpired());
+        } else {
+          dispatch({ type: REQUEST_POLL_FAIL });
+        }
       });
 
     dispatch({

@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     alignItems: 'center',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     flex: 1,
   },
