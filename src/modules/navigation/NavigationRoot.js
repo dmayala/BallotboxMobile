@@ -57,6 +57,7 @@ export default class NavigationRoot extends Component {
         <Login
           failureMessage={this.props.failureMessage}
           loginUser={this.props.loginUser}
+          signupUser={this.props.signupUser}
         />
       );
     }
@@ -82,4 +83,5 @@ NavigationRoot.propTypes = {
   }),
   popRoute: React.PropTypes.func.isRequired,
   pushRoute: React.PropTypes.func.isRequired,
+  signupUser: React.PropTypes.func.isRequired,
 };

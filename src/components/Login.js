@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   },
   authInputIcon: {
     fontSize: 20,
+    width: 20,
     color: '#fff',
   },
   authInputText: {
@@ -82,12 +83,24 @@ class Login extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      email: '',
       username: '',
       password: '',
+      isNewUser: false,
     };
   }
 
+  _submit() {
+    const { email, username, password } = this.state;
+    if (this.state.isNewUser) {
+      this.props.signupUser({ email, username, password, confirmPassword: password });
+    } else {
+      this.props.loginUser({ username, password });
+    }
+  }
+
   render() {
+    const { isNewUser } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.brand}>
@@ -100,6 +113,21 @@ class Login extends Component {
         </View>
         <View style={{ marginTop: 80, alignItems: 'center' }}>
           <Text style={styles.validation}>{this.props.failureMessage}</Text>
+          {isNewUser ?
+            (<View style={[styles.authInput, { marginBottom: 20 }]}>
+              <Icon
+                name="envelope"
+                style={styles.authInputIcon}
+              />
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                onChangeText={(email) => this.setState({ ...this.state, email })}
+                placeholder="Email"
+                placeholderTextColor="#D3E0E7"
+                style={styles.authInputText}
+              />
+            </View>) : null}
           <View style={styles.authInput}>
             <Icon
               name="user"
@@ -111,7 +139,7 @@ class Login extends Component {
               onChangeText={(username) => this.setState({ ...this.state, username })}
               placeholder="Username"
               placeholderTextColor="#D3E0E7"
-              style={[styles.authInputText, { fontStyle: !this.state.username.length ? 'italic' : 'normal' }]}
+              style={styles.authInputText}
             />
           </View>
           <View style={[styles.authInput, { marginTop: 20 }]}>
@@ -124,20 +152,28 @@ class Login extends Component {
               placeholder="Password"
               placeholderTextColor="#D3E0E7"
               secureTextEntry
-              style={[styles.authInputText, { fontStyle: !this.state.password.length ? 'italic' : 'normal' }]}
+              style={styles.authInputText}
             />
           </View>
         </View>
         <TouchableHighlight
-          onPress={() => { this.props.loginUser(this.state); }}
+          onPress={this._submit.bind(this)}
           style={styles.loginBtn}
           underlayColor="#71C9E4"
         >
-          <Text style={[styles.brandBaseText, styles.loginBtnText]}>Login</Text>
+          <Text style={[styles.brandBaseText, styles.loginBtnText]}>
+            {isNewUser ? 'Sign Up' : 'Log In'}
+          </Text>
         </TouchableHighlight>
         <View style={styles.footer}>
           <Text style={[styles.brandBaseText, styles.footerText]}>
-            Don’t have an account? <Text style={{ textDecorationLine: 'underline' }}>Sign Up</Text>
+            {isNewUser ? 'Already' : 'Don\’t'} have an account?{' '}
+            <Text
+              onPress={() => this.setState({ ...this.state, isNewUser: !isNewUser })}
+              style={{ textDecorationLine: 'underline' }}
+            >
+              {isNewUser ? 'Log In' : 'Sign Up'}
+            </Text>
           </Text>
         </View>
       </View>
@@ -148,6 +184,7 @@ class Login extends Component {
 Login.propTypes = {
   failureMessage: React.PropTypes.string,
   loginUser: React.PropTypes.func.isRequired,
+  signupUser: React.PropTypes.func.isRequired,
 };
 
 export default Login;

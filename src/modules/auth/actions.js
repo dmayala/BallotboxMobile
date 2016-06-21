@@ -15,7 +15,9 @@ export const signupUser = (details) => {
     })
       .then(response => response.json())
       .then((data) => {
-        if (data.status) { throw new Error(data.message); }
+        if (data.modelState) {
+          throw new Error(data.modelState[0].errorMessage);
+        }
         const { username, token } = data;
         dispatch({
           type: SIGNUP_SUCCESS,
@@ -43,7 +45,7 @@ export const loginUser = (details) => {
     })
       .then(response => response.json())
       .then((data) => {
-        if (!(data.statusCode >= 200 && data.statusCode <= 299)) {
+        if (data.modelState) {
           throw new Error('Invalid username or password');
         }
         const { username, token } = data;

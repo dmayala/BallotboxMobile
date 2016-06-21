@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import NavigationRoot from './NavigationRoot';
 import { push, pop } from './actions';
-import { loginUser } from '../auth/actions';
+import { loginUser, signupUser } from '../auth/actions';
 
 function mapStateToProps(state) {
   return {
@@ -15,6 +15,7 @@ function mapDispatchToProps(dispatch) {
     loginUser: (details) => dispatch(loginUser(details)),
     pushRoute: route => dispatch(push(route)),
     popRoute: () => dispatch(pop()),
+    signupUser: (details) => dispatch(signupUser(details)),
   };
 }
 export default connect(
