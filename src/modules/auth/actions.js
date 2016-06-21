@@ -17,7 +17,6 @@ export const signupUser = (details) => {
       .then((data) => {
         if (data.status) { throw new Error(data.message); }
         const { username, token } = data;
-        // cookie.save('bearer', data.token)
         dispatch({
           type: SIGNUP_SUCCESS,
           response: { username, token },
@@ -44,10 +43,10 @@ export const loginUser = (details) => {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
-        if (data.status) { throw new Error(data.message); }
+        if (!(data.statusCode >= 200 && data.statusCode <= 299)) {
+          throw new Error('Invalid username or password');
+        }
         const { username, token } = data;
-        // cookie.save('bearer', data.token)
         dispatch({
           type: LOGIN_USER_SUCCESS,
           response: { username, token },

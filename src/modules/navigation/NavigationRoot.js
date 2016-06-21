@@ -53,7 +53,12 @@ export default class NavigationRoot extends Component {
 
   render() {
     if (!this.props.isAuthenticated) {
-      return <Login loginUser={this.props.loginUser} />;
+      return (
+        <Login
+          failureMessage={this.props.failureMessage}
+          loginUser={this.props.loginUser}
+        />
+      );
     }
 
     return (
@@ -68,6 +73,7 @@ export default class NavigationRoot extends Component {
 }
 
 NavigationRoot.propTypes = {
+  failureMessage: React.PropTypes.string,
   isAuthenticated: React.PropTypes.bool.isRequired,
   loginUser: React.PropTypes.func.isRequired,
   navigation: React.PropTypes.shape({

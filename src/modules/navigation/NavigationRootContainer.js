@@ -5,6 +5,7 @@ import { loginUser } from '../auth/actions';
 
 function mapStateToProps(state) {
   return {
+    failureMessage: state.auth.failureMessage,
     isAuthenticated: state.auth.isAuthenticated,
     navigation: state.navigation,
   };
