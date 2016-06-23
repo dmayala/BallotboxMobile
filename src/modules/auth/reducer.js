@@ -68,10 +68,4 @@ export default handleActions({
       failureMessage: response,
     };
   },
-  [REHYDRATE]: (state, action) => {
-    const incoming = action.payload.auth;
-    if (incoming) {
-      return { ...state, ...incoming, failureMessage: '' };
-    }
-  },
 }, initialState);

@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import {
   BackAndroid,
   NavigationExperimental,
+  View,
 } from 'react-native';
 import * as modules from '../index';
 import Login from '../../components/Login';
+import Settings from '../../components/Settings';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -27,7 +29,10 @@ export default class NavigationRoot extends Component {
   _renderScene({ scene }) {
     const { route } = scene;
     const module = modules[route.key];
-    return <module.Component />;
+    if (route.key === 'settings') {
+      return <Settings _goBack={this._handleBackAction.bind(this)} />;
+    }
+    return <module.Component _handleNavigate={this._handleNavigate.bind(this)} />;
   }
 
   _handleBackAction() {
@@ -64,12 +69,14 @@ export default class NavigationRoot extends Component {
     }
 
     return (
-      <NavigationCardStack
-        direction="vertical"
-        navigationState={this.props.navigation}
-        onNavigate={this._handleNavigate}
-        renderScene={this._renderScene}
-      />
+      <View style={{ flex: 1 }}>
+        <NavigationCardStack
+          direction="vertical"
+          navigationState={this.props.navigation}
+          onNavigate={this._handleNavigate}
+          renderScene={this._renderScene}
+        />
+      </View>
     );
   }
 }

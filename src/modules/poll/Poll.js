@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as actions from './actions';
 
@@ -114,6 +115,19 @@ class Poll extends Component {
   _renderPoll() {
     return (
       <View style={styles.container}>
+        <Icon
+          name="cog"
+          onPress={() => {
+            this.props._handleNavigate({
+              type: 'push',
+              payload: {
+                key: 'settings',
+                title: 'About',
+              },
+            });
+          }}
+          style={{ textAlign: 'right', paddingRight: 20, fontSize: 20, color: '#b2daeb' }}
+        />
         <View style={styles.question}>
           <Text style={styles.questionText}>
           {this.props.question}

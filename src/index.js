@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View } from 'react-native';
+import { AsyncStorage, Linking, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
-
 
 import { navigation } from './modules/navModule';
 
@@ -16,9 +15,19 @@ class Main extends Component {
   }
 
   componentWillMount() {
+    Linking.addEventListener('url', this.handleDeepLink);
     persistStore(store, { storage: AsyncStorage, whitelist: ['auth'] }, () => {
       this.setState({ rehydrated: true });
     });
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleDeepLink);
+  }
+
+  handleDeepLink(e) {
+    console.log('handling it!');
+    console.log(e.url);
   }
 
   render() {
