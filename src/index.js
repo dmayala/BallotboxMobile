@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
 import { navigation } from './modules/navModule';
+import { poll } from './modules';
 
 import createStore from './createStore';
 const store = createStore();
@@ -26,8 +27,13 @@ class Main extends Component {
   }
 
   handleDeepLink(e) {
-    console.log('handling it!');
-    console.log(e.url);
+    const parts = e.url.split(/:?\//);
+    const module = parts[2];
+
+    if (poll.NAME === module) {
+      const id = parts[3];
+      store.dispatch(poll.actions.fetchPoll(id));
+    }
   }
 
   render() {

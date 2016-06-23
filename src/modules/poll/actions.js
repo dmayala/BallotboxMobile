@@ -3,10 +3,10 @@ import { REQUEST_POLL, REQUEST_POLL_FAIL, RECEIVE_POLL, VOTE } from './constants
 import { sessionExpired } from '../auth/actions';
 const baseUrl = Config.API_URL;
 
-export const fetchPoll = () => {
+export const fetchPoll = (id) => {
   return (dispatch, getState) => {
     const bearer = getState().auth.token;
-    fetch(`${baseUrl}/api/polls/random`, {
+    fetch(`${baseUrl}/api/polls/${id ? id : 'random'}`, {
       headers: {
         'Authorization': `Bearer ${bearer}`,
       },
