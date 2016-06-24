@@ -33,6 +33,7 @@ class Main extends Component {
     if (poll.NAME === module) {
       const id = parts[3];
       store.dispatch(poll.actions.fetchPoll(id));
+      store.dispatch(navigation.actions.popToTop());
     }
   }
 

@@ -48,9 +48,18 @@ export default class NavigationRoot extends Component {
     case 'push':
       this.props.pushRoute(action.payload);
       return true;
+    case 'replace':
+      this.props.replaceRoute(action.payload);
+      return true;
+    case 'resetTo':
+      this.props.resetToRoute(action.payload);
+      return true;
     case 'back':
     case 'pop':
       return this._handleBackAction();
+    case 'popToTop':
+      this.props.popToTopRoute();
+      return true;
     default:
       return false;
     }
@@ -91,6 +100,9 @@ NavigationRoot.propTypes = {
     key: PropTypes.string.isRequired,
   }),
   popRoute: PropTypes.func.isRequired,
+  popToTopRoute: PropTypes.func.isRequired,
   pushRoute: PropTypes.func.isRequired,
+  replaceRoute: PropTypes.func.isRequired,
+  resetToRoute: PropTypes.func.isRequired,
   signupUser: PropTypes.func.isRequired,
 };
