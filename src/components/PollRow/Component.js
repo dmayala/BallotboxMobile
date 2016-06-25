@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     flexDirection: 'row',
-    height: 100,
+    height: 92,
     alignItems: 'center',
   },
   circle: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginLeft: 28,
   },
   circleActive: {
-    backgroundColor: '#71C9E4',
+    backgroundColor: '#4393B9',
   },
   circleText: {
     fontSize: 20,

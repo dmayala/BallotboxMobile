@@ -7,6 +7,7 @@ import {
 import * as modules from '../index';
 import Login from '../../components/Login';
 import Settings from '../../components/Settings';
+import NavBar from '../../components/NavBar';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 
@@ -30,9 +31,29 @@ export default class NavigationRoot extends Component {
     const { route } = scene;
     const module = modules[route.key];
     if (route.key === 'settings') {
-      return <Settings _goBack={this._handleBackAction.bind(this)} />;
+      return (
+        <View style={{ flex: 1 }}>
+          <NavBar
+            _handleNavigate={this._handleNavigate.bind(this)}
+            leftButton={Settings.leftButton}
+            rightButton={Settings.rightButton}
+            title={Settings.title}
+          />
+          <Settings _goBack={this._handleBackAction.bind(this)} />
+        </View>
+      );
     }
-    return <module.Component _handleNavigate={this._handleNavigate.bind(this)} />;
+    return (
+      <View style={{ flex: 1 }}>
+        <NavBar
+          _handleNavigate={this._handleNavigate.bind(this)}
+          leftButton={module.Component.leftButton}
+          rightButton={module.Component.rightButton}
+          title={module.Component.title}
+        />
+        <module.Component _handleNavigate={this._handleNavigate.bind(this)} />
+      </View>
+    );
   }
 
   _handleBackAction() {
@@ -80,7 +101,7 @@ export default class NavigationRoot extends Component {
     return (
       <View style={{ flex: 1 }}>
         <NavigationCardStack
-          direction="vertical"
+          direction="horizontal"
           navigationState={this.props.navigation}
           onNavigate={this._handleNavigate}
           renderScene={this._renderScene}
@@ -98,6 +119,7 @@ NavigationRoot.propTypes = {
   navigation: PropTypes.shape({
     index: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
+    routes: PropTypes.array.isRequired,
   }),
   popRoute: PropTypes.func.isRequired,
   popToTopRoute: PropTypes.func.isRequired,

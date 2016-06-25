@@ -12,7 +12,6 @@ const initialState = {
   key: 'root',
   routes: [{
     key: 'poll',
-    title: 'Vote on a Poll',
   }],
 };
 
