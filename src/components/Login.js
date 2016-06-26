@@ -108,7 +108,7 @@ class Login extends Component {
             Ballotbox
           </Text>
           <Text style={[styles.brandBaseText, styles.brandSub]}>
-            create custom polls with live results
+            vote on random custom polls
           </Text>
         </View>
         <View style={{ marginTop: 80, alignItems: 'center' }}>

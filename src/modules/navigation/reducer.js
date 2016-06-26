@@ -7,6 +7,8 @@ import {
   RESET_TO_ROUTE,
 } from './constants';
 
+import { LOGOUT_USER_SUCCESS } from '../auth/constants';
+
 const initialState = {
   index: 0,
   key: 'root',
@@ -51,5 +53,8 @@ export default handleActions({
       ...initialState,
       routes: [action.route],
     };
+  },
+  [LOGOUT_USER_SUCCESS]: (state, action) => {
+    return initialState;
   },
 }, initialState);

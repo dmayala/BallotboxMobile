@@ -41,10 +41,7 @@ export default class NavigationRoot extends Component {
           />
           <Settings
             _goBack={this._handleBackAction.bind(this)}
-            _handleLogout={() => {
-              this.props.logOutUser();
-              this.props.popToTopRoute();
-            }}
+            _handleLogout={this.props.logOutUser}
           />
         </View>
       );
