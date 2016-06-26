@@ -7,9 +7,9 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as actions from './actions';
-
 import PollRow from '../../components/PollRow/Component';
 
 const styles = StyleSheet.create({
@@ -143,7 +143,7 @@ class Poll extends Component {
 Poll.title = Poll.displayName = 'Ballotbox';
 
 Poll.rightButton = {
-  title: 'Settings',
+  title: <Icon name="ellipsis-h" size={17} />,
   navigate: {
     type: 'push',
     payload: {

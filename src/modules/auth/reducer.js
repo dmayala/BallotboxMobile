@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
 import { SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE,
          LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
+         LOGOUT_USER_SUCCESS,
          SESSION_EXPIRED } from './constants';
-import { REHYDRATE } from 'redux-persist/constants';
 
 const initialState = {
   username: null,
@@ -60,6 +60,9 @@ export default handleActions({
       authPending: false,
       failureMessage: response,
     };
+  },
+  [LOGOUT_USER_SUCCESS]: (state, action) => {
+    return initialState;
   },
   [SESSION_EXPIRED]: (state, action) => {
     const { response } = action;

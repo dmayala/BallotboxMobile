@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 import { SIGNUP, SIGNUP_FAILURE, SIGNUP_SUCCESS,
          LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE,
+         LOGOUT_USER, LOGOUT_USER_SUCCESS,
          SESSION_EXPIRED } from './constants';
 const baseUrl = Config.API_URL;
 
@@ -63,6 +64,17 @@ export const loginUser = (details) => {
         });
       });
     dispatch({ type: LOGIN_USER });
+  };
+};
+
+export const logOutUser = () => {
+  return (dispatch, getState) => {
+    fetch(`${baseUrl}/auth/logout`, { method: 'post' })
+      .then(response => response.json())
+      .then(() => {
+        dispatch({ type: LOGOUT_USER_SUCCESS });
+      });
+    dispatch({ type: LOGOUT_USER });
   };
 };
 

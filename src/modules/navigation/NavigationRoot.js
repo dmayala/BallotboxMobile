@@ -39,7 +39,13 @@ export default class NavigationRoot extends Component {
             rightButton={Settings.rightButton}
             title={Settings.title}
           />
-          <Settings _goBack={this._handleBackAction.bind(this)} />
+          <Settings
+            _goBack={this._handleBackAction.bind(this)}
+            _handleLogout={() => {
+              this.props.logOutUser();
+              this.props.popToTopRoute();
+            }}
+          />
         </View>
       );
     }
@@ -87,11 +93,12 @@ export default class NavigationRoot extends Component {
   }
 
   render() {
-    if (!this.props.isAuthenticated) {
+    const { authPending, failureMessage, isAuthenticated } = this.props.auth;
+    if (!isAuthenticated) {
       return (
         <Login
-          authPending={this.props.authPending}
-          failureMessage={this.props.failureMessage}
+          authPending={authPending}
+          failureMessage={failureMessage}
           loginUser={this.props.loginUser}
           signupUser={this.props.signupUser}
         />
@@ -112,9 +119,12 @@ export default class NavigationRoot extends Component {
 }
 
 NavigationRoot.propTypes = {
-  authPending: PropTypes.bool.isRequired,
-  failureMessage: PropTypes.string,
-  isAuthenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.shape({
+    authPending: PropTypes.bool.isRequired,
+    failureMessage: PropTypes.string,
+    isAuthenticated: PropTypes.bool.isRequired,
+  }),
+  logOutUser: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
     index: PropTypes.number.isRequired,

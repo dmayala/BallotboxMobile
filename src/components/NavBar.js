@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { StyleSheet } from 'react-native';
 import NavigationBar from 'react-native-navbar';
+
+import NavBarButton from './NavBarButton';
 
 const styles = StyleSheet.create({
   navBar: {
@@ -12,7 +14,7 @@ const statusBar = {
   tintColor: '#4393B9',
 };
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   render() {
     const { _handleNavigate, leftButton, rightButton } = this.props;
     let actualLeftButton;
@@ -36,12 +38,41 @@ export default class NavBar extends Component {
 
     return (
         <NavigationBar
-            title={{ title: this.props.title, tintColor: '#fff' }}
-            leftButton={actualLeftButton}
-            rightButton={actualRightButton}
-            statusBar={statusBar}
-            style={styles.navBar}
+          leftButton={
+            <NavBarButton {...actualLeftButton}
+              style={{ marginLeft: 8 }}
+            />
+          }
+          rightButton={
+            <NavBarButton {...actualRightButton}
+              style={{ marginRight: 8 }}
+            />
+          }
+          statusBar={statusBar}
+          style={styles.navBar}
+          title={{ title: this.props.title, tintColor: '#fff' }}
         />
     );
   }
 }
+
+NavBar.propTypes = {
+  _handleNavigate: PropTypes.func,
+  leftButton: PropTypes.shape({
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+    ]),
+    tintColor: PropTypes.string,
+  }),
+  rightButton: PropTypes.shape({
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+    ]),
+    tintColor: PropTypes.string,
+  }),
+  title: PropTypes.string,
+};
+
+export default NavBar;
