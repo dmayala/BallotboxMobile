@@ -5,9 +5,11 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+const fontFamily = (Platform.OS === 'ios') ? 'HelveticaNeue' : 'Roboto';
 const styles = StyleSheet.create({
   authInput: {
     borderBottomColor: '#4CA8D3',
@@ -23,17 +25,17 @@ const styles = StyleSheet.create({
   },
   authInputText: {
     color: '#fff',
-    fontFamily: 'HelveticaNeue',
-    height: 30,
+    fontFamily,
+    height: (Platform.OS === 'ios') ? 30 : 38,
     marginLeft: 15,
     width: 265,
   },
   brand: {
-    marginTop: 125,
+    marginTop: (Platform.OS === 'ios') ? 125 : 50,
     alignItems: 'center',
   },
   brandBaseText: {
-    fontFamily: 'HelveticaNeue',
+    fontFamily,
     color: '#ffffff',
   },
   brandHead: {
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontWeight: '200',
+    fontFamily: (Platform.OS !== 'ios') ? 'sans-serif-light' : undefined,
   },
   loginBtn: {
     alignItems: 'center',
@@ -126,6 +129,7 @@ class Login extends Component {
                 placeholder="Email"
                 placeholderTextColor="#D3E0E7"
                 style={styles.authInputText}
+                underlineColorAndroid="transparent"
               />
             </View>) : null}
           <View style={styles.authInput}>
@@ -140,6 +144,7 @@ class Login extends Component {
               placeholder="Username"
               placeholderTextColor="#D3E0E7"
               style={styles.authInputText}
+              underlineColorAndroid="transparent"
             />
           </View>
           <View style={[styles.authInput, { marginTop: 20 }]}>
@@ -153,6 +158,7 @@ class Login extends Component {
               placeholderTextColor="#D3E0E7"
               secureTextEntry
               style={styles.authInputText}
+              underlineColorAndroid="transparent"
             />
           </View>
         </View>

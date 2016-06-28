@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  View,
+  Text,
   StyleSheet,
+  TouchableHighlight,
 } from 'react-native';
-
-import Render from './Render';
 
 const styles = StyleSheet.create({
   choiceText: {
@@ -42,7 +43,20 @@ const styles = StyleSheet.create({
 
 class PollRow extends Component {
   render() {
-    return Render.bind(this)(styles);
+    const { active, charCode, choice, onPress } = this.props;
+    return (
+      <View style={styles.container}>
+          <TouchableHighlight
+            onPress={onPress}
+            style={[styles.circle, active && styles.circleActive]}
+          >
+            <Text style={[styles.circleText, active && styles.circleTextActive]}>
+              {String.fromCharCode(charCode)}
+            </Text>
+          </TouchableHighlight>
+          <Text style={styles.choiceText}>{choice.name}</Text>
+        </View>
+    );
   }
 }
 

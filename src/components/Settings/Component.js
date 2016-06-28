@@ -3,8 +3,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import TableView from 'react-native-tableview';
-const { Section, Item, Cell } = TableView;
+import Render from './Render';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,19 +27,7 @@ class Settings extends Component {
   }
 
   render() {
-    return (
-      <TableView
-        style={styles.container}
-        tableViewCellStyle={TableView.Consts.CellStyle.Subtitle}
-        tableViewStyle={TableView.Consts.Style.Grouped}
-      >
-        <Section arrow={false}>
-          <Cell onPress={this.props._handleLogout}>
-            <Text style={styles.signOut}>Sign Out</Text>
-          </Cell>
-        </Section>
-      </TableView>
-    );
+    return Render.bind(this)(styles);
   }
 }
 

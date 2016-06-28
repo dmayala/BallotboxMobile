@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as actions from './actions';
-import PollRow from '../../components/PollRow/Component';
+import PollRow from '../../components/PollRow';
 
 const styles = StyleSheet.create({
   container: {
