@@ -3,12 +3,11 @@ import {
   BackAndroid,
   NavigationExperimental,
   View,
-  Text,
 } from 'react-native';
 import * as modules from '../index';
 import Login from '../../components/Login';
 import Settings from '../../components/Settings/Component';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/NavBar/Component';
 
 const { CardStack: NavigationCardStack } = NavigationExperimental;
 

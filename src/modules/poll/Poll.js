@@ -144,6 +144,7 @@ Poll.title = Poll.displayName = 'Ballotbox';
 
 Poll.rightButton = {
   title: <Icon name="ellipsis-h" size={17} />,
+  description: 'Settings',
   navigate: {
     type: 'push',
     payload: {

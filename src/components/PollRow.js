@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Platform,
   View,
   Text,
   StyleSheet,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     flexDirection: 'row',
-    height: 92,
+    height: (Platform.OS === 'ios') ? 92 : 75,
     alignItems: 'center',
   },
   circle: {

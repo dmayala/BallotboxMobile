@@ -77,5 +77,6 @@ export default handleActions({
     if (incoming) {
       return { ...state, ...incoming, authPending: false, failureMessage: '' };
     }
+    return state;
   },
 }, initialState);
