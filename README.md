@@ -2,7 +2,7 @@
 An Android/iOS Voting Application that uses the [BallotboxCore API](https://github.com/dmayala/BallotboxCore/). 
 
 <p align="center">
-  <img src="https://github.com/dmayala/BallotboxMobile/raw/master/screenshots/SurveyPage.png" width="70%" />
+  <img src="https://github.com/dmayala/BallotboxMobile/raw/master/screenshots/SurveyPage.png" width="80%" />
 </p>
 
 Built with the following tools:
